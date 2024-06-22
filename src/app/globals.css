@@ -6,3 +6,14 @@ html{
     display: block;
     position: relative;
 }
+
+
+/**
+.leaflet-control-geosearch {
+    position: absolute !important;
+    top: 10px !important; /* Adjust this to move the search box vertically *
+    left: 50% !important; /* Center the search box horizontally *
+    transform: translateX(-50%) !important; /* Ensure the search box remains centered *
+    background-color: black !important;
+}
+*/
