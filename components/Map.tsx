@@ -29,7 +29,7 @@ function Search() {
             autoClose: false,
             retainZoomLevel: false,
             animateZoom: true,
-            keepResult: true,
+            keepResult: false,
             searchLabel: 'Enter address',
             collapsed: false,                      
         });
@@ -41,6 +41,11 @@ function Search() {
 
 
         map.addControl(searchControl);
+        
+        map.on('geosearch/showlocation', function(data:any){
+            console.log(data);
+        }
+        );
         
 
         return () => {
