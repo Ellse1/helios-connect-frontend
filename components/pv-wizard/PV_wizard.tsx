@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import EConsumption from "./E_consumption"
 import AgreementAndExplanation from "./AgreementAndExplanation";
 import ContactAndExplanation from "./ContactAndExplanation";
+import Results from "./Results";
 
 
 
@@ -36,6 +37,7 @@ export default function Wizard() {
                 {wizardStep === 1 && <Map onStatusChange={handleStatusChange} />}
                 {wizardStep === 2 && <EConsumption onStatusChange={handleStatusChange} />}
                 {wizardStep === 3 && <ContactAndExplanation onStatusChange={handleStatusChange} />}
+                {wizardStep === 4 && <Results />}
             </div>
 
 
