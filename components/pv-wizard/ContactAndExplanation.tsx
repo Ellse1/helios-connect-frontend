@@ -1,20 +1,25 @@
 
 import React, { useEffect, useState } from 'react';
+import { GGVProjectProps } from "@/../models/GGVProjectProps"
 
 
 interface ChildComponentProps {
     onStatusChange: (status: boolean) => void;
+    ggvProject: GGVProjectProps;
+    updateGGVProject: (newGGVProject:GGVProjectProps) => void
 }
 
 
-export default function ContactAndExplanation({onStatusChange}: ChildComponentProps){
+export default function ContactAndExplanation({onStatusChange, ggvProject, updateGGVProject}: ChildComponentProps){
     
     const [email, setEmail] = useState('');
     const [isValidEmail, setIsValidEmail] = useState(false);
-
+    
     const[phoneNumber, setPhoneNumber] = useState('');
     const[isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
   
+    const[address, setAddress] = useState(''); // [street, number, zip, city, country
+
     // Regular expression for basic email validation
     const emailRegex = /\S+@\S+\.\S+/;
     const germanPhoneRegex = /^(?:\+49|0049)?[1-9]\d{1,4}(?:[\s\-]?\d{1,4}){1,6}$/;
@@ -31,14 +36,37 @@ export default function ContactAndExplanation({onStatusChange}: ChildComponentPr
         setIsValidPhoneNumber(germanPhoneRegex.test(phoneNumberInput));
         console.log(phoneNumberInput);
         console.log(isValidPhoneNumber);
+    };
+
+    const handleAddressChange = (e: any) => {
+        const addressInput = e.target.value;
+        setAddress(addressInput);
     }
 
-
     useEffect(() => {
+        // Update the GGV project with the new email, phone number and address
+        const newGGVProject: GGVProjectProps = {
+            ...ggvProject,
+            email: email,
+            phone_number: phoneNumber,
+            address_for_contact: address
+        };
+        updateGGVProject(newGGVProject);
+        // set to "ready", so the "Show Results" button is enabled
         onStatusChange(isValidEmail);
     }, [isValidEmail]);
 
     useEffect(() => {
+        // Update the GGV project with the new email, phone number and address
+        const newGGVProject: GGVProjectProps = {
+            ...ggvProject,
+            email: email,
+            phone_number: phoneNumber,
+            address_for_contact: address
+        };
+        updateGGVProject(newGGVProject);
+        // set to "ready", so the "Show Results" button is enabled
+        updateGGVProject(newGGVProject);
         onStatusChange(isValidPhoneNumber);
     }, [isValidPhoneNumber]);
 
@@ -71,7 +99,7 @@ export default function ContactAndExplanation({onStatusChange}: ChildComponentPr
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
                     Address (optional - We send you information and results to the address)
                 </label>
-                <input value={phoneNumber} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address" type="text" placeholder="Address" />
+                <input value={address} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address" type="text" placeholder="Address" onChange={handleAddressChange} />
             </div>
         </div>
     )

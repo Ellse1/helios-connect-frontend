@@ -9,15 +9,17 @@ import "leaflet-defaulticon-compatibility"
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css"
 import 'leaflet-geosearch/dist/geosearch.css';
 
+import { GGVProjectProps } from "@/../models/GGVProjectProps"
 
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 
 // Define an interface for the component props
 interface ChildComponentProps {
     onStatusChange: (status: boolean) => void;
+    updateGGVProject: (newGGVProject:GGVProjectProps) => void
 }
 
-function Search({markAsReady}: {markAsReady: () => void}){
+function Search({markAsReady, updateGGVProject}: {markAsReady: () => void, updateGGVProject: (newGGVProject:GGVProjectProps) => void}){
 
     const map = useMap();
 
@@ -58,6 +60,56 @@ function Search({markAsReady}: {markAsReady: () => void}){
         
         map.on('geosearch/showlocation', function(data:any){
             if(checkIfAddressIsValid(data.location.label)){
+
+                // Before "mark as ready": call the backend:
+                // 1) check if the address is already in the database. if not, add it
+                // 2) if promode is active (later logged in user), return the data for this specific adress, as this should be shown and editable in the next steps
+                // 3) if promode is not active, don't return any data, as the data needs to be kept secret
+
+                /**
+                const addressData = {
+                    address: data.location.label,
+                }
+                
+                try {
+                    const response = fetch('http://localhost:8000/api/v1/ggv-projects/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(addressData),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+                }
+                catch (error) {
+                    console.error('There was a problem with the fetch operation:', error);
+                } */
+
+                // normaly a new (or old) PV system should be given by the backend
+                // for test, we just create a new one here
+                const newGGVProject: GGVProjectProps = {
+                    id: 1,
+                    location_label_open_streetmap: data.location.label,
+                    location_latitute: data.location.y,
+                    location_longitude: data.location.x,
+                    inhabitantsOfLivingUnits: [],
+                    electrcityConsumption: 0,
+                    pv_strings: [],
+                    email: "",
+                    phone_number: "",
+                    address_for_contact: ""
+                };
+                // push this new GGV project to the parent component
+                updateGGVProject(newGGVProject);
+
+
+
                 markAsReady();
             }
         }
@@ -74,7 +126,7 @@ function Search({markAsReady}: {markAsReady: () => void}){
   return null;
 }
 
-export default function MyMap({onStatusChange}: ChildComponentProps) {
+export default function MyMap({onStatusChange, updateGGVProject}: ChildComponentProps) {
     const zoom  = 6;
     const position: [number, number] = [49.137154, 11.056124];
 
@@ -97,7 +149,7 @@ export default function MyMap({onStatusChange}: ChildComponentProps) {
                 subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
                 />
 
-                <Search markAsReady={markAsReady} />
+                <Search markAsReady={markAsReady} updateGGVProject={updateGGVProject} />
             </MapContainer>
         </div>
 

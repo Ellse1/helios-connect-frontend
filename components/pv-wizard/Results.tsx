@@ -5,10 +5,13 @@ import { elements, plugins, scales, CategoryScale } from 'chart.js';
 import Chart from 'chart.js/auto';
 Chart.register(plugins, scales, CategoryScale);
 
+import { GGVProjectProps } from "@/../models/GGVProjectProps"
+import { useEffect } from 'react';
 
 
 
-export default function Results(){
+
+export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
 
     const data: any ={
         labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -47,6 +50,56 @@ export default function Results(){
         }
     }
     
+    const [results, setResults] = useState<any>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+
+    // make an API call for getting results
+    const api_call_data = {
+        "location": {
+            "longitude": ggvProject.location_longitude,
+            "latitude": ggvProject.location_latitute
+        },
+        "rooftop": {
+            "tilt_angle": 30,
+            "azimut_angle": 180
+        },
+        "annual_el_demand": ggvProject.electrcityConsumption,
+    }
+
+
+    useEffect(() => {
+        // Simulate fetching data from backend
+        const fetchData = async () => {
+          try {
+            // Replace this URL with your actual endpoint
+            // const response = await fetch('http://localhost:8000/api/calculate', {
+            const response = await fetch('http://helios-connect-backend.185.170.114.79.sslip.io/api/calculate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(api_call_data),  
+            });
+            const data = await response.json();
+            console.log(data);
+            setResults(data);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          } finally {
+            setIsLoading(false); // Set loading to false regardless of outcome
+          }
+        };
+    
+        fetchData();
+      }, []); // Empty dependency array means this effect runs once on mount
+    
+      if (isLoading) {
+        return <div>Loading...</div>; // Show loading animation or message
+      }
+
+
+
 
     return (
         <div className="w-full md:w-1/2">
@@ -60,8 +113,9 @@ export default function Results(){
                     PV Production: 
                 </div>
                 <div>
-                    10000 kWh
+                    {results && results["annual_el_production"].toFixed(0)} KWh
                 </div>
+                {/** 
                 <div>
                     Sold to tenants:
                 </div>
@@ -73,7 +127,7 @@ export default function Results(){
                 </div>
                 <div>
                     6000 KWh
-                </div>
+                </div>*/}
             </div>
 
 
@@ -82,13 +136,13 @@ export default function Results(){
                     Money earned from tenants:
                 </div>
                 <div>
-                    4000 KWh * 0.25 €/KWh = 1000 €
+                    {results && results["cost_savings_GGV"]} €
                 </div>
                 <div>
                     Money Earned from Grid Operator:
                 </div>
                 <div>
-                    6000 KWh * 0.08 €/KWh = 480 €
+                    {results && results["profit_grid_feed_in"]} €
                 </div>
             </div>
 
@@ -97,7 +151,7 @@ export default function Results(){
                     Money Earned yearly:
                 </div>
                 <div className='font-bold'>
-                    1000 € + 480 € = 1480 €
+                    {results && ( results["cost_savings_GGV"].toFixed(0) +  "€ + " + results["profit_grid_feed_in"].toFixed(0) + "€ = " + (results["cost_savings_GGV"] + results["profit_grid_feed_in"]).toFixed(0))} €
                 </div>
             </div>
         </div>

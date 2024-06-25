@@ -1,12 +1,15 @@
 
 import React, { useState, useRef, useEffect } from 'react';
+import { GGVProjectProps } from "@/../models/GGVProjectProps"
 
 // Define an interface for the component props
 interface ChildComponentProps {
     onStatusChange: (status: boolean) => void;
+    ggvProject: GGVProjectProps;
+    updateGGVProject: (newGGVProject:GGVProjectProps) => void
 }
 
-export default function EConsumption({onStatusChange}:ChildComponentProps){
+export default function EConsumption({onStatusChange, ggvProject, updateGGVProject}:ChildComponentProps){
 
     const [households, setHouseholds] = useState<number>(1);
 
@@ -70,6 +73,21 @@ export default function EConsumption({onStatusChange}:ChildComponentProps){
     {/** Check for readyness, if electricityConsumption changed */}
     useEffect(() => {
         if(electricityConsumption >= 500 && electricityConsumption < 100000){
+            
+            // get the exact number of inhabitants for each household
+            const form = formRef.current;
+            const values: number[] = [];
+            // Assuming each input field has a unique name attribute like input0, input1, etc.
+            for (let i = 0; i < households; i++) {
+                if(form){
+                    const input = form[`input${i}`] as HTMLInputElement;
+                    if (input) {
+                        
+                        values.push(Number(input.value)); // Collecting values
+                    }
+                }
+            }
+            updateGGVProject({...ggvProject, electrcityConsumption: electricityConsumption, inhabitantsOfLivingUnits: values});
             onStatusChange(true);
         }
         else{
