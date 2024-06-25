@@ -17,6 +17,9 @@ html{
 .highlight{
     color: #2DC653;
 }
+.wrapper{
+    width: 1620px;
+}
 
 /*General components*/
 .primaryButton {
@@ -39,6 +42,87 @@ html{
     color: #2DC653;
 }
 
+.secondaryButton{
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #fff; /* Button background color */
+    color: #2DC653; /* Button text color */
+    border-radius: 10px; /* Rounded corners */
+    border:2px solid #2DC653; /* Needed so that button does not jump when hovering */
+    cursor: pointer;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none; /* Removes underline */
+}
+.secondaryButton:hover {
+    background-color: #2DC653; /* Darker shade for hover */
+    color: #fff;
+}
+
+/* Navbar Styles */
+/* src/app/globals.css */
+
+.navbar-background {
+    width: 100%;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1620px;
+    width: 100%;
+    padding: 20px 0;
+    margin: auto;
+    font-family: Nunito;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-text {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: Syne; 
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 50px;
+  }
+  
+  .nav-link-item {
+    font-size: 18px;
+    font-weight: medium;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link-item:hover {
+    color: #2dc653;
+  }
+  
+  .auth-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .menu-icon {
+    color: #333;
+  }
+  
+
+  
+
 /*Home Page Styles*/
 .HeroSection {
     display: flex;
@@ -46,7 +130,7 @@ html{
     align-items: center; /* Vertically center-aligns items */
     width: 1620px;
     margin: auto;
-    height: 85vh; /* Full viewport height for vertical centering */
+    height: 100vh; /* Full viewport height for vertical centering */
 }
 
 .HeroSection .Text {
