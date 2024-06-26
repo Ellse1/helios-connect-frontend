@@ -38,7 +38,7 @@ const Navbar = () => {
     <div className="flex fixed-top fixed justify-between items-center w-full h-20 px-4 text-white bg-white nav">
       <div>
         {/* <h1 className="text-5xl font-signature ml-2"><a className="link-underline hover:transition ease-in-out delay-150 hover:underline hover:decoration-solid" href="">Logo</a></h1> */}
-        <h1 className="text-5xl font-signature ml-2">
+        <h1 className="text-4xl font-signature ml-2">
           <a
             className="link-underline link-underline-black"
             href=""
@@ -63,10 +63,10 @@ const Navbar = () => {
 
       <ul className="hidden md:flex">
         <li>
-          <button className=" mx-2 px-4 py-1.5 bg-white border border-2 rounded border-green-600 text-green-600">Log In</button>
+          <button className="mx-2 px-4 py-1 bg-white border border-2 rounded rounded-xl border-green-600 text-green-600">Log In</button>
         </li>
         <li>
-        <button className=" mx-2 px-4 py-1.5 bg-green-600 border border-2 rounded  border-green-600 text-white">Register</button>
+        <button className=" mx-2 px-4 py-1 bg-green-600 border border-2 rounded-xl border-green-600 text-white">Register</button>
         </li>
       </ul>
 
