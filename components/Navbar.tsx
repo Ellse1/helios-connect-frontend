@@ -35,7 +35,7 @@ const Navbar = () => {
   ];
   return (
 
-    <div className="flex fixed-top fixed justify-between items-center w-full h-20 px-4 text-white bg-white nav">
+    <div className="flex fixed-top fixed justify-between items-center w-full h-20 px-4 text-white bg-gray-100 nav">
       <div>
         {/* <h1 className="text-5xl font-signature ml-2"><a className="link-underline hover:transition ease-in-out delay-150 hover:underline hover:decoration-solid" href="">Logo</a></h1> */}
         <h1 className="text-4xl font-signature ml-2">
@@ -54,7 +54,7 @@ const Navbar = () => {
         {links.map(({ id, name, link}) => (
           <li
             key={id}
-            className="nav-links px-4 cursor-pointer capitalize font-medium text-gray-500 hover:scale-105 hover:text-black duration-200 link-underline"
+            className="nav-links px-4 cursor-pointer capitalize font-medium text-gray-500 hover:scale-105 hover:text-green-600 duration-200 link-underline"
           >
             <Link href={link}>{name}</Link>
           </li>

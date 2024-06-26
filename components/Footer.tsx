@@ -2,7 +2,7 @@
 export default function Footer(){
     return (
         <div className="">
-            <div className="bg-green-600 bg-opacity-10 py-10">
+            <div className="bg-green-600 bg-opacity-10 py-10 mt-10">
                 <div className="grid grid-cols-3">
                     <div className="col-span-1">
 

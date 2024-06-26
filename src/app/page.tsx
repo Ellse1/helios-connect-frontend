@@ -78,6 +78,40 @@ export default function Home() {
         </div>
       </div>
 
+
+      <div className="w-2/3 mx-auto mt-20">
+        <div className="grid grid-cols-3 gap-4">
+          <div className='col-span-1'>
+            <div className='bg-green-200 p-4 rounded-xl'>
+                <h3 className='font-bold'>Überschrift 1</h3>
+                <p>
+                  Lorem ipsum for some words Lorem ipsum for some words Lorem ipsum for some words Lorem ipsum for Lorem ipsum for  Lorem ipsum for Lorem ipsum for Lorem ipsum for Lorem ipsum for 
+                  Lorem ipsum for some words Lorem ipsum for Lorem ipsum for some words Lorem ipsum for 
+                </p>
+            </div>
+          </div>
+          <div className='col-span-2 flex flex-col gap-4'>
+            <div className='grid grid-cols-2 gap-4'>
+              <div className='bg-green-200 p-4 rounded-xl'>
+                <h3 className='font-bold'>Überschrift 2</h3>
+                Lorem ipsum for some words Lorem ipsum for Lorem ipsum for some words Lorem ipsum for 
+              </div>
+              <div className='bg-green-200 p-4 rounded-xl'>
+                <h3 className='font-bold'>Überschrift 3</h3>
+                Some 2 Lorem ipsum for some words Lorem ipsum for Lorem ipsum for some words Lorem ipsum for 
+              </div>
+            </div>
+            <div className='bg-green-200 p-4 rounded-xl h-full'>
+              <h3 className='font-bold'>Überschrift 4</h3>
+              Some 3
+              Lorem ipsum for some words Lorem ipsum for Lorem ipsum for some words Lorem ipsum for 
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
     </div>
   );
 }
