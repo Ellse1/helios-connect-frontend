@@ -13,19 +13,18 @@ import { useEffect } from 'react';
 
 export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
 
-    const data: any ={
-        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        datasets: [
-            {
-            data: [ 100, 110, 120, 130, 200, 180, 160, 150, 110, 90, 80, 90]
-            },
-        ],
-    }
+    const [chartData, setChartData] = useState<any>(null);
 
     const options:any  = {
         plugins : {
             legend: {
                 display: false,
+            },
+            tooltip: {
+                enabled: true, // Enable tooltips
+                mode: 'index', // Show tooltips for all items at the same index
+                intersect: false, // Show tooltips even when not exactly hovering over an item
+                // Further customize your tooltips here
             }
         }, 
         elements: {
@@ -41,12 +40,40 @@ export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
             }
         },
         scales: {
-            xAxis: {
-                display: false
+            x: {
+                display: true
             },
-            yAxis: {
-                display: false
+            'left-axis': { // Use the ID as the key directly
+                type: 'linear',
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'KWh', // Title for the left y-axis
+                    color: '#666', // Optional: color of the label
+                    font: {
+                        size: 14 // Optional: font size of the label
+                    }
+                },
+                // Additional configuration for the left-axis
+            },
+            'right-axis': { // Use the ID as the key directly
+                type: 'linear',
+                position: 'right',
+                title: {
+                    display: true,
+                    text: 'g CO2 equivalents', // Title for the right y-axis
+                    color: '#666', // Optional: color of the label
+                    font: {
+                        size: 14 // Optional: font size of the label
+                    }
+                },
+                grid: {
+                    drawOnChartArea: false, // Correct property name in Chart.js v3+
+                },
+                
+                // Additional configuration for the right-axis
             }
+            
         }
     }
     
@@ -84,6 +111,34 @@ export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
             const data = await response.json();
             console.log(data);
             setResults(data);
+            setChartData({
+                labels: Object.keys(data.monthly_el_production.el_production), // Extract month names as labels
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: 'PV Production',
+                        data: Object.values(data.monthly_el_production.el_production), // Extract production values as data
+                        fill: false,
+                        borderColor: 'rgba(75, 192, 192, 0.2)',
+                        tension: 0.1,
+                        order: 2,
+                        yAxisID: 'left-axis', // Assign to the left y-axis
+                    },
+                    {
+                        type: 'line', // Specify this dataset to be displayed as a line chart
+                        label: 'CO2 Savings',
+                        data: Object.values(data.monthly_CO2_reduction.CO2_reduction), // Extract CO2 savings values as data
+                        fill: false,
+                        borderColor: 'rgb(0, 0, 139)', // Line color
+                        tension: 0.1,
+                        borderWidth: 2,
+                        order: 1,
+                        yAxisID: 'right-axis', // Assign to the right y-axis
+
+                    }
+                ]
+            });
+
           } catch (error) {
             console.error('Error fetching data:', error);
           } finally {
@@ -106,7 +161,7 @@ export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
             <h1 className="text-2xl font-bold">Yearly Results</h1>
 
 
-            <Bar data={data} options={options} />
+            <Bar data={chartData} options={options} />
 
             <div className="grid grid-cols-2 mt-4">
                 <div>
