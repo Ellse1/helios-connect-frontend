@@ -15,22 +15,18 @@ const Navbar = () => {
     {
       id: 2,
       name: "Information",
-      link: "Information",
+      link: "information",
     },
     {
       id: 3,
       name: "Consulting",
-      link: "Consulting",
+      link: "consulting",
     },
+
     {
       id: 4,
-      name: "Contact",
-      link: "Contact",
-    },
-    {
-      id: 5,
       name: "About us",
-      link: "About",
+      link: "about",
     },
   ];
   return (
