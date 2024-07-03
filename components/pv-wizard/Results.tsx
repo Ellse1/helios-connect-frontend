@@ -101,7 +101,7 @@ export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
           try {
             // Replace this URL with your actual endpoint
             // const response = await fetch('http://localhost:8000/api/calculate', {
-            const response = await fetch('http://helios-connect-backend.185.170.114.79.sslip.io/api/calculate', {
+            const response = await fetch('https://helios-connect-backend.185.170.114.79.sslip.io/api/calculate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
