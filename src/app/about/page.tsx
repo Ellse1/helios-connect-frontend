@@ -1,4 +1,6 @@
 
+import Image
+ from "next/image"
 export default function About() {
 
 
@@ -9,23 +11,23 @@ export default function About() {
 
             <div className="flex flex-row flex-wrap justify-center md:justify-between items-center mt-8">
                 <div>
-                    <img src="/images/people/Bild1.png" alt="Description 1" className="w-20 h-20 md:w-24 md:h-24 rounded-full border-8 border-green-500 object-cover mb-4 md:mb-0"/>
+                    <Image src="/images/people/Bild1.png" alt="Description 1" className="w-20 h-20 md:w-24 md:h-24 rounded-full border-8 border-green-500 object-cover mb-4 md:mb-0" width={100} height={100}/>
                     <p className="text-center mt-2">David</p>
                 </div>
                 <div>
-                    <img src="/images/people/Bild2.jpg" alt="Description 1" className="w-20 h-20 md:w-24 md:h-24 rounded-full border-8 border-green-500 object-cover mb-4 md:mb-0"/>
+                    <Image src="/images/people/Bild2.jpg" alt="Description 1" className="w-20 h-20 md:w-24 md:h-24 rounded-full border-8 border-green-500 object-cover mb-4 md:mb-0" width={100} height={100}/>
                     <p className="text-center mt-2">Francisca</p>
                 </div>
                 <div>
-                    <img src="/images/people/Bild3.jpg" alt="Description 1" className="w-20 h-20 md:w-24 md:h-24 rounded-full border-8 border-green-500 object-cover mb-4 md:mb-0"/>
+                    <Image src="/images/people/Bild3.jpg" alt="Description 1" className="w-20 h-20 md:w-24 md:h-24 rounded-full border-8 border-green-500 object-cover mb-4 md:mb-0" width={100} height={100}/>
                     <p className="text-center mt-2">Elias</p>
                 </div>
                 <div>
-                    <img src="/images/people/Bild4.png" alt="Description 1" className="w-20 h-20 md:w-24 md:h-24 rounded-full border-8 border-green-500 object-cover mb-4 md:mb-0"/>
+                    <Image src="/images/people/Bild4.png" alt="Description 1" className="w-20 h-20 md:w-24 md:h-24 rounded-full border-8 border-green-500 object-cover mb-4 md:mb-0" width={100} height={100}/>
                     <p className="text-center mt-2">Marcel</p>
                 </div>
                 <div>
-                    <img src="/images/people/Bild5.jpg" alt="Description 1" className="w-20 h-20 md:w-24 md:h-24 rounded-full border-8 border-green-500 object-cover mb-4 md:mb-0"/>
+                    <Image src="/images/people/Bild5.jpg" alt="Description 1" className="w-20 h-20 md:w-24 md:h-24 rounded-full border-8 border-green-500 object-cover mb-4 md:mb-0" width={100} height={100}/>
                     <p className="text-center mt-2">Maxi</p>
                 </div>
             </div>

@@ -7,7 +7,7 @@ export default function Information(){
             <p className="text-4xl text-green-600">but easy!</p>
 
             <p className="mt-5">
-                The "Gemeinschaftliche Gebäudeversorgung" (GGV) initiative has recently been enacted by the Bundestag, 
+                The Gemeinschaftliche Gebäudeversorgung (GGV) initiative has recently been enacted by the Bundestag, 
                 marking a significant step forward in the energy sector. This innovative approach is designed to 
                 streamline and enhance the efficiency of energy distribution within communal buildings, offering 
                 a straightforward and profitable method for managing energy resources. By leveraging collective 
