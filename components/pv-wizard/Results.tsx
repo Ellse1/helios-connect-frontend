@@ -299,7 +299,7 @@ export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
                         communicate with us and manage your PV Project
                     </li>
                     <li>
-                        <b>Get Energized!</b> Let's arrange a date for the installation of your PV System
+                        <b>Get Energized!</b> Lets arrange a date for the installation of your PV System
                     </li>
                 </ul>
             </div>
