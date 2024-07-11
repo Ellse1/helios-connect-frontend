@@ -7,14 +7,14 @@ Chart.register(plugins, scales, CategoryScale);
 
 import { GGVProjectProps } from "@/../models/GGVProjectProps"
 import { useEffect } from 'react';
+import { latLng } from 'leaflet';
 
 
 
 
 export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
 
-    const [chartData, setChartData] = useState<any>(null);
-
+    const [chartData, setChartData] = useState<any>(null);   
     const options:any  = {
         plugins : {
             legend: {
@@ -76,10 +76,53 @@ export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
             
         }
     }
-    
+    const optionsAmortization:any  = {
+        plugins : {
+            legend: {
+                display: false,
+            },
+            tooltip: {
+                enabled: true, // Enable tooltips
+                mode: 'index', // Show tooltips for all items at the same index
+                intersect: false, // Show tooltips even when not exactly hovering over an item
+                // Further customize your tooltips here
+            }
+        }, 
+        elements: {
+            point: {
+                radius: 0,
+                hitRadius: 0,
+            },
+            bar: {
+                borderWidth: 0,
+                borderRadius: 10,
+                borderSkipped: "bottom",
+            }
+        },
+        scales: {
+            x: {
+                display: true
+            },
+            'left-axis': { // Use the ID as the key directly
+                type: 'linear',
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Money in €', // Title for the left y-axis
+                    color: '#666', // Optional: color of the label
+                    font: {
+                        size: 14 // Optional: font size of the label
+                    }
+                },
+                // Additional configuration for the left-axis
+            },            
+        }
+    }
     const [results, setResults] = useState<any>(null);
+    const yearlySavings = results ? results["cost_savings_GGV"] : 0;
     const [isLoading, setIsLoading] = useState(true);
 
+    const [chartDataAmortization, setChartDataAmortization] = useState<any>(null);
 
     // make an API call for getting results
     const api_call_data = {
@@ -139,6 +182,29 @@ export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
                 ]
             });
 
+            setChartDataAmortization({
+                labels: ["Invested", "Earned after 10 years"],
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: "Amortization",
+                        data: [3000, (data.cost_savings_GGV + data.profit_grid_feed_in) * 10], // Extract production values as data
+                        fill: false,
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)', // Red
+                            'rgba(75, 192, 192, 1)' // Green
+                        ],                       
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 1)', // Red with opacity
+                            'rgba(20,220,0,1)' // Green with opacity
+                        ],
+                        tension: 0.1,
+                        order: 2,
+                        yAxisID: 'left-axis', // Assign to the left y-axis
+                    }
+                ]
+            });	
+
           } catch (error) {
             console.error('Error fetching data:', error);
           } finally {
@@ -194,7 +260,7 @@ export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
                     {results && results["cost_savings_GGV"]} €
                 </div>
                 <div>
-                    Money Earned from Grid Operator:
+                    Money earned from Grid Operator:
                 </div>
                 <div>
                     {results && results["profit_grid_feed_in"]} €
@@ -203,12 +269,41 @@ export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
 
             <div className="grid grid-cols-2 mt-4">
                 <div className="font-bold">
-                    Money Earned yearly:
+                    Money earned yearly:
                 </div>
                 <div className='font-bold'>
                     {results && ( results["cost_savings_GGV"].toFixed(0) +  "€ + " + results["profit_grid_feed_in"].toFixed(0) + "€ = " + (results["cost_savings_GGV"] + results["profit_grid_feed_in"]).toFixed(0))} €
                 </div>
             </div>
+
+
+            <div>
+                <h1 className="text-2xl font-bold mt-10">Amortization</h1>
+                <Bar data={chartDataAmortization} options={optionsAmortization} />
+            </div>
+
+
+            <h1 className="mt-10 text-2xl font-bold ">We will contact you:</h1>
+            <p className='mt-2'>
+                After a <b>more precise calculation</b> of your PV System, we will contact you with an explanation of the <b>next steps</b>.
+            </p>
+
+            <div className='mt-5'>
+                <p>Next steps: </p>
+                <ul className='list-disc ml-5'>
+                    <li>
+                        <b>Get Email</b> with link to more precise analysis of your PV Project
+                    </li>
+                    <li>
+                        <b>Get Access</b> to our helios-connect platform, where you can refine your data, 
+                        communicate with us and manage your PV Project
+                    </li>
+                    <li>
+                        <b>Get Energized!</b> Let's arrange a date for the installation of your PV System
+                    </li>
+                </ul>
+            </div>
+
         </div>
     )
 }

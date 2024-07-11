@@ -115,10 +115,10 @@ export default function EConsumption({onStatusChange, ggvProject, updateGGVProje
             </form>
 
             <div className="flex justify-center mt-2 ">
-                <button className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-2 `} onClick={() => setHouseholds(households + 1)}>
+                <button className={`bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mx-2 `} onClick={() => setHouseholds(households + 1)}>
                     + Household
                 </button>
-                <button className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-2 ${households <= 1 ? 'opacity-50 cursor-not-allowed' : ''}`} onClick={() => setHouseholds(households - 1)} disabled={households <= 1}>
+                <button className={`bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mx-2 ${households <= 1 ? 'opacity-50 cursor-not-allowed' : ''}`} onClick={() => setHouseholds(households - 1)} disabled={households <= 1}>
                     - Household
                 </button>
             </div>

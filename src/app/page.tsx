@@ -12,7 +12,7 @@ export default function Home() {
             <div className='col-span-2'>
               <div className='mt-10'>
                 <h1 className="text-4xl font-bold">Gemeinschaftliche<br />Gebäudeversorgung</h1>
-                <p className="text-4xl text-green-600">but easy!</p>
+                <p className="text-4xl text-green-600">Sell Solar-Energy to your Tenants!</p>
               </div>
               <p>Our Vision is, that everyone can profit from the energy transation. Let us change the future together and join the energy revolution now.</p>
 

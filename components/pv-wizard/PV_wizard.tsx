@@ -78,12 +78,12 @@ export default function Wizard({promode = false}) {
             
             {((isChildReady && promode==false && wizardStep != 3) || (isChildReady && promode && wizardStep != 4)) && (
             <div className="flex justify-center mt-5">
-                <button className="px-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded" onClick={() => {setCurrentStep(wizardStep + 1); setIsChildReady(false) }}>Next</button>
+                <button className="px-10 bg-green-600 hover:bg-green-800 hover:bg-blue-700 text-white font-bold py-2 rounded rounded-xl" onClick={() => {setCurrentStep(wizardStep + 1); setIsChildReady(false) }}>Next</button>
             </div>
             )}
             {((wizardStep == 3 && !promode) || (wizardStep == 4 && promode)) && (
             <div className="flex justify-center mt-5">
-                <button disabled={!isChildReady} className={`px-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled ${!isChildReady ? "cursor-not-allowed" : ""}`} onClick={() => {setCurrentStep(wizardStep + 1); setIsChildReady(false) }}>Show first results</button>
+                <button disabled={!isChildReady} className={`px-10 bg-green-600 hover:bg-green-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded rounded-xl disabled ${!isChildReady ? "cursor-not-allowed" : ""}`} onClick={() => {setCurrentStep(wizardStep + 1); setIsChildReady(false) }}>Show first results</button>
             </div>
             )}
 
