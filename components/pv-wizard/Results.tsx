@@ -188,7 +188,7 @@ export default function Results({ggvProject}:{ggvProject:GGVProjectProps}){
                     {
                         type: 'bar',
                         label: "Amortization",
-                        data: [3000, (data.cost_savings_GGV + data.profit_grid_feed_in) * 10], // Extract production values as data
+                        data: [data.money_invested, (data.cost_savings_GGV + data.profit_grid_feed_in) * 10], // Extract production values as data
                         fill: false,
                         borderColor: [
                             'rgba(255, 99, 132, 1)', // Red
